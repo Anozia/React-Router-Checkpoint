@@ -2,14 +2,18 @@ import { useState, useEffect } from "react";
 import AddMovie from "../AddMovie/AddMovie.js";
 import "./App.css";
 import MovieList from "../MovieList/MovieList";
-import Filtering from "../Filtering/Filtring";
+import Filtering from "../Filtering/Filtering";
+// import filtredList from "/src/filteredList";
+import Description from "../Description/Description.js";
+import { Routes, Route } from "react-router-dom";
 
 const info = [
   {
     title: "Ant Man",
+    trailer: "https://www.youtube.com/watch?v=pWdKf3MneyI",
     img: "/images/Ant Man.jpg",
     description:
-      "Ant-Man is a 2015 American superhero film based on the Marvel Comics characters",
+      "Ant-Man is a 2015 American superhero film based on the Marvel Comics characters of the same name: Scott Lang and Hank Pym.",
     posterURL: "www.imdb.com",
     rating: 9.4,
   },
@@ -23,6 +27,7 @@ const info = [
   // },
   {
     title: "Bohemian Rhapsody",
+    trailer: "https://www.youtube.com/watch?v=mP0VHJYFOAU",
     img: "/images/Bohemian Rhapsody.jpg",
     description:
       "With his impeccable vocal abilities, Freddie Mercury and his rock band, Queen, achieve superstardom. However, amidst his skyrocketing success, he grapples with his ego, sexuality and a fatal illness.",
@@ -31,6 +36,7 @@ const info = [
   },
   {
     title: "jaws",
+    trailer: "https://www.youtube.com/watch?v=mP0VHJYFOAU",
     img: "/images/jaws.jpg",
     description:
       "A police chief, a marine scientist and a fisherman spring into action after a white shark terrorises the inhabitants of Amity, a quiet island.",
@@ -39,6 +45,7 @@ const info = [
   },
   {
     title: "Moonlight",
+    trailer: "https://www.youtube.com/watch?v=mP0VHJYFOAU",
     img: "/images/moonlight.jpg",
     description:
       "Chiron, a young African-American boy, finds guidance in Juan, a drug dealer, who teaches him to carve his own path. As he grows up in Miami, Juan's advice leaves a lasting impression on him.",
@@ -47,6 +54,7 @@ const info = [
   },
   {
     title: "Pulp Fiction_",
+    trailer: "https://www.youtube.com/watch?v=mP0VHJYFOAU",
     img: "/images/Pulp Fiction_.jpg",
     description:
       "In the realm of underworld, a series of incidents intertwines the lives of two Los Angeles mobsters, a gangster's wife, a boxer and two small-time criminals..",
@@ -55,6 +63,7 @@ const info = [
   },
   {
     title: "RoboCop",
+    trailer: "https://www.youtube.com/watch?v=mP0VHJYFOAU",
     img: "/images/RoboCop.jpg",
     description:
       "In a dystopic and crime-infested Detroit, a terminally injured policeman returns to the force as a potent cyborg haunted by submerged memories.",
@@ -63,6 +72,7 @@ const info = [
   },
   {
     title: "Split",
+    trailer: "https://www.youtube.com/watch?v=mP0VHJYFOAU",
     img: "/images/Split.jpg",
     description:
       "Police officer (Rick) wakes up from a coma in which he was in for several months as a result of being shot while on the job, to find that the world has been ravaged by the zombies and he is the only survivor. An army of the zombies, events escalate.",
@@ -71,6 +81,7 @@ const info = [
   },
   {
     title: "The Godfather",
+    trailer: "https://www.youtube.com/watch?v=mP0VHJYFOAU",
     img: "/images/The Godfather.jpg",
     description:
       "The Godfather is a crime novel by American author Mario Puzo.",
@@ -109,11 +120,30 @@ function App() {
     filter(keyword, rate);
   }, [list]);
 
+  // return (
+  //   <div className="App">
+  //     <Filtering filter={filter} />
+  //     <MovieList list={filtredList} />
+  //     <AddMovie adding={adding} />
+  //   </div>
+  // );
+
   return (
     <div className="App">
-      <Filtering filter={filter} />
-      <MovieList list={filtredList} />
-      <AddMovie adding={adding} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              {" "}
+              <Filtering filter={filter} /> <MovieList list={filtredList} />{" "}
+              <AddMovie adding={adding} />{" "}
+            </>
+          }
+        />
+
+        <Route path="/:id" element={<Description list={list} />} />
+      </Routes>
     </div>
   );
 }
